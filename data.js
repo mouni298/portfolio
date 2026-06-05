@@ -44,8 +44,8 @@ window.MG = {
       status: null,
       one: "Turns documents into confidence-scored structured data.",
       desc:
-        "Parses PDF/DOCX/image files into Groq-powered JSON with confidence scoring, persisted results, batch jobs, and a Next.js interface.",
-      tags: ["FastAPI", "Next.js", "Groq", "Vision LLM", "SQLModel", "Celery"],
+        "Runs OCR on scanned PDFs and images, then parses PDF/DOCX/image files into Groq-powered JSON with confidence scoring, persisted results, batch jobs, and a Next.js interface.",
+      tags: ["FastAPI", "Next.js", "OCR", "Groq", "Vision LLM", "SQLModel", "Celery"],
       repo: "https://github.com/mouni298/ai-doc-extractor",
       nodes: ["Ingest", "Parse", "Vision LLM", "Score", "Persist"],
     },
@@ -97,6 +97,30 @@ window.MG = {
     { group: "Backend & Cloud", items: ["Python", "FastAPI", "Docker", "AWS", "GCP"] },
     { group: "Eval & LLMOps", items: ["LangSmith", "Prompt Eng", "Monitoring"] },
   ],
+
+  metrics: [
+    { v: "4", u: "yrs", l: "Production GenAI" },
+    { v: "70", u: "%", l: "Less manual effort" },
+    { v: "30", u: "%", l: "Higher AI accuracy" },
+  ],
+
+  certifications: [
+    { name: "AWS Certified Cloud Practitioner", by: "Amazon Web Services" },
+    { name: "Associate Cloud Engineer", by: "Google Cloud" },
+    { name: "Certified AI Associate", by: "Salesforce" },
+    { name: "Applied Generative AI Professional", by: "Infosys" },
+    { name: "Certified Python Programmer", by: "Infosys" },
+    { name: "Certified Mongo Developer", by: "Infosys" },
+  ],
+
+  awards: [
+    { title: "EnGenius Best Engineer Award", org: "Infosys", when: "Sep 2024 & Mar 2025" },
+    { title: "Rise Insta Award", org: "Infosys", when: "Mar 2024" },
+  ],
+
+  education: [
+    { degree: "B.Tech, Information Technology", org: "SRKR Engineering College", when: "2018 – 2022", note: "CGPA 8.67" },
+  ],
 };
 
 /* Grounding text for the AI "ask me" feature. */
@@ -112,8 +136,12 @@ EXPERIENCE:
 PROJECTS:
 1. Swaram AI — open-source TypeScript SDK for voice AI agents (VAD, STT, LLM, tool calls, TTS, telephony). Stack: Groq, Ollama, Whisper.cpp, Kokoro TTS, Twilio.
 2. Content Automator — agent-directed content pipeline; LLM Director picks strategy, deterministic Python services do research/media/FFmpeg assembly + approval-gated publishing. Stack: Google ADK, Gemini, FFmpeg, Telegram, YouTube API.
-3. Doc Extractor — turns PDF/DOCX/images into confidence-scored structured JSON. Stack: FastAPI, Next.js, Groq, Vision LLM, SQLModel, Celery.
+3. Doc Extractor — runs OCR on scanned PDFs/images, then turns PDF/DOCX/images into confidence-scored structured JSON. Stack: FastAPI, Next.js, OCR, Groq, Vision LLM, SQLModel, Celery.
 4. Agentic CRM (currently building) — supervisor agent qualifies leads, RAG support deflection, Researcher to Outreach chain, every handoff human-approved, with traces + kill-switch. Stack: Google ADK, MCP, A2A, Claude, RAG (Chroma), FastAPI.
 
 STACK: LangChain, LangGraph, DeepAgents, Google ADK, MCP, LlamaIndex, Milvus, ChromaDB, OpenAI, Anthropic, Gemini, Grok, Groq, Python, FastAPI, Docker, AWS, GCP, LangSmith.
+IMPACT: ~4 years of production GenAI experience; reduced manual effort by 70% on legacy modernization; improved AI response accuracy by 30% via prompt engineering.
+CERTIFICATIONS: AWS Certified Cloud Practitioner, Google Cloud Associate Cloud Engineer, Salesforce Certified AI Associate, Applied Generative AI Professional (Infosys), Certified Python Programmer, Certified Mongo Developer.
+AWARDS: EnGenius Best Engineer Award - Infosys (Sep 2024 & Mar 2025), Rise Insta Award - Infosys (Mar 2024).
+EDUCATION: B.Tech in Information Technology, SRKR Engineering College (2018-2022), CGPA 8.67.
 CONTACT: email grandhimounika29@gmail.com, GitHub github.com/mouni298, LinkedIn linkedin.com/in/mounika-grandhi.`;
