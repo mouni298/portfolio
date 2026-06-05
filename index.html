@@ -3,374 +3,734 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      name="description"
-      content="Mounika Grandhi is an AI Engineer building production AI systems, RAG pipelines, multi-agent workflows, and LLM applications."
-    />
-    <title>Mounika Grandhi | AI Engineer</title>
+    <title>Mounika Grandhi — AI Engineer</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;650;750;850&family=JetBrains+Mono:wght@500;700&family=Syne:wght@600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=33" />
+    <style>
+      :root {
+        --bg: #06090d;
+        --panel: #0a1119;
+        --panel-2: #0d1620;
+        --line: rgba(122, 180, 210, 0.14);
+        --line-2: rgba(122, 180, 210, 0.28);
+        --text: #d6e4ee;
+        --head: #f1f7fb;
+        --muted: #76909f;
+        --dim: #46596a;
+        --accent: #57c7e0;
+        --accent-bright: #8fe3f5;
+        --accent-rgb: 87, 199, 224;
+        --on-accent: #04181f;
+        --cyan: var(--accent);
+        --cyan-bright: var(--accent-bright);
+        --cyan-dim: rgba(var(--accent-rgb), 0.12);
+        --sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+        --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+        --ease: cubic-bezier(0.2, 1, 0.3, 1);
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; height: 100%; }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--sans);
+        font-size: 16px;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        overflow: hidden;
+      }
+      a { color: inherit; text-decoration: none; }
+      h1, h2, h3 { font-weight: 600; color: var(--head); line-height: 1.06; margin: 0; text-wrap: balance; }
+      :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+      .grid-bg {
+        position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.4;
+        background-image:
+          linear-gradient(rgba(122,180,210,0.045) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(122,180,210,0.045) 1px, transparent 1px);
+        background-size: 46px 46px;
+        mask-image: radial-gradient(130% 100% at 50% 0%, #000 35%, transparent 85%);
+      }
+      #flow-field {
+        position: fixed; inset: 0; z-index: 0; pointer-events: none;
+        mask-image: radial-gradient(125% 95% at 50% 35%, #000 55%, transparent 100%);
+        -webkit-mask-image: radial-gradient(125% 95% at 50% 35%, #000 55%, transparent 100%);
+        opacity: 0; transition: opacity 0.6s ease;
+      }
+
+      .eyebrow {
+        font-family: var(--mono); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase;
+        color: var(--cyan); margin: 0; display: inline-flex; align-items: center; gap: 10px;
+      }
+      .eyebrow::before { content: ""; width: 26px; height: 1px; background: var(--cyan); display: inline-block; }
+      .lead, .proj-desc, .span li { text-wrap: pretty; }
+
+      /* ---------- top bar ---------- */
+      .topbar {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 30;
+        display: flex; align-items: center; justify-content: space-between;
+        height: 68px; padding: 0 clamp(20px, 5vw, 48px);
+        pointer-events: none;
+      }
+      .topbar > * { pointer-events: auto; }
+      .brand { display: flex; align-items: center; gap: 12px; font-weight: 600; color: var(--head); white-space: nowrap; }
+      .brand .mark {
+        display: grid; place-items: center; width: 32px; height: 32px;
+        border: 1px solid var(--cyan); color: var(--cyan); font-family: var(--mono); font-size: 12px; font-weight: 700;
+      }
+      .brand small { color: var(--dim); font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; }
+      .top-right { display: flex; align-items: center; gap: 20px; font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+      .top-right .status { display: inline-flex; align-items: center; gap: 8px; color: var(--cyan); white-space: nowrap; }
+      .top-right .status i { width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
+      .top-right a { transition: color 0.18s ease; }
+      .top-right a:hover { color: var(--text); }
+
+      /* ---------- snap scroller ---------- */
+      .snap {
+        position: relative; z-index: 1;
+        height: 100dvh; overflow-y: scroll; overflow-x: hidden;
+        scroll-snap-type: y mandatory; scroll-behavior: smooth;
+        scrollbar-width: none;
+      }
+      .snap::-webkit-scrollbar { display: none; }
+
+      .page {
+        position: relative;
+        min-height: 100dvh;
+        scroll-snap-align: start; scroll-snap-stop: always;
+        display: flex; flex-direction: column; justify-content: center;
+        padding: 92px clamp(22px, 6vw, 88px) clamp(48px, 8vh, 88px);
+        max-width: 1280px; margin: 0 auto; width: 100%;
+      }
+      .page-num {
+        position: absolute; top: clamp(70px, 11vh, 104px); right: clamp(20px, 6vw, 80px);
+        font-family: var(--mono); font-size: clamp(5rem, 13vw, 12rem); font-weight: 700;
+        line-height: 0.8; color: transparent;
+        -webkit-text-stroke: 1px rgba(var(--accent-rgb), 0.09); pointer-events: none; user-select: none; z-index: 0;
+      }
+      .page-inner { position: relative; z-index: 1; width: 100%; }
+
+      /* ---------- hero ---------- */
+      .hero-inner { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(24px, 4vw, 64px); align-items: center; }
+      .hero h1 { font-size: clamp(2.3rem, 5vw, 4.2rem); letter-spacing: -0.02em; margin: 20px 0 0; }
+      .hero h1 b { color: var(--cyan); font-weight: 600; }
+      .hero .lead { color: var(--muted); max-width: 46ch; margin: 22px 0 0; font-size: 1.05rem; }
+      .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+      .btn {
+        display: inline-flex; align-items: center; gap: 9px; height: 46px; padding: 0 20px;
+        font-family: var(--mono); font-size: 13px; border: 1px solid var(--line-2); color: var(--text);
+        transition: border-color 0.18s ease, color 0.18s ease, background 0.18s ease, transform 0.18s ease;
+      }
+      .btn:hover { border-color: var(--cyan); color: var(--cyan); background: var(--cyan-dim); transform: translateY(-2px); }
+      .btn.primary { background: var(--cyan); color: var(--on-accent); border-color: var(--cyan); font-weight: 700; }
+      .btn.primary:hover { background: var(--cyan-bright); color: var(--on-accent); }
+
+      .graph-wrap { position: relative; }
+      .graph { width: 100%; height: auto; display: block; overflow: visible; }
+      .edge { fill: none; stroke: var(--line-2); stroke-width: 1.2; }
+      .pkt { fill: var(--cyan-bright); filter: drop-shadow(0 0 4px var(--cyan)); }
+      .node-box { fill: var(--panel-2); stroke: var(--line-2); stroke-width: 1; }
+      .node-box.core { fill: rgba(var(--accent-rgb),0.1); stroke: var(--cyan); }
+      .node-label { font-family: var(--mono); font-size: 11px; fill: var(--text); }
+      .node-label.core { fill: var(--cyan-bright); font-weight: 700; font-size: 12px; }
+      .node-sub { font-family: var(--mono); font-size: 8.5px; fill: var(--muted); letter-spacing: 0.04em; }
+
+      .scroll-hint {
+        position: absolute; left: 50%; bottom: clamp(20px, 4vh, 40px); transform: translateX(-50%);
+        display: flex; flex-direction: column; align-items: center; gap: 8px;
+        font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim);
+      }
+      .scroll-hint .m { width: 20px; height: 32px; border: 1px solid var(--line-2); border-radius: 12px; position: relative; }
+      .scroll-hint .m::after { content: ""; position: absolute; left: 50%; top: 7px; width: 3px; height: 6px; border-radius: 2px; background: var(--cyan); transform: translateX(-50%); animation: wheel 1.6s var(--ease) infinite; }
+      @keyframes wheel { 0% { opacity: 0; transform: translate(-50%, 0); } 30% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, 10px); } }
+
+      /* ---------- project page ---------- */
+      .proj-page .page-inner { max-width: 1080px; }
+      .proj-head { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+      .sys-id { font-family: var(--mono); font-size: 13px; color: var(--cyan); letter-spacing: 0.06em; }
+      .kind { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+      .badge {
+        font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+        color: var(--cyan); border: 1px solid var(--cyan); border-radius: 999px; padding: 3px 10px;
+      }
+      .proj-name { font-size: clamp(2rem, 5vw, 3.4rem); letter-spacing: -0.02em; margin: 14px 0 0; }
+      .proj-one { color: var(--accent-bright); font-size: clamp(1.05rem, 1.8vw, 1.35rem); margin: 14px 0 0; max-width: 40ch; font-weight: 500; }
+      .proj-desc { color: var(--muted); max-width: 62ch; margin: 18px 0 0; font-size: 1.02rem; }
+      .repo { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 13px; color: var(--cyan); margin-top: 26px; transition: gap 0.2s ease, color 0.18s ease; }
+      .repo:hover { color: var(--cyan-bright); gap: 13px; }
+
+      /* pipeline (large, the centerpiece) */
+      .pipe { display: flex; align-items: center; flex-wrap: wrap; gap: 0; margin: 30px 0 4px; }
+      .pnode {
+        font-family: var(--mono); font-size: 13px; color: var(--text);
+        border: 1px solid var(--line-2); background: var(--panel-2); padding: 12px 18px; white-space: nowrap;
+        position: relative; transition: border-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
+      }
+      .proj-page.in .pnode { animation: nodeIn 0.5s var(--ease); }
+      .proj-page.in .pnode:nth-child(1){ animation-delay: 0.15s } .proj-page.in .pnode:nth-child(3){ animation-delay: 0.27s }
+      .proj-page.in .pnode:nth-child(5){ animation-delay: 0.39s } .proj-page.in .pnode:nth-child(7){ animation-delay: 0.51s }
+      .proj-page.in .pnode:nth-child(9){ animation-delay: 0.63s } .proj-page.in .pnode:nth-child(11){ animation-delay: 0.75s }
+      @keyframes nodeIn { from { opacity: 0.2; transform: translateY(8px) scale(0.97); } }
+      .pnode:first-child { border-color: var(--cyan); color: var(--cyan-bright); background: var(--cyan-dim); }
+      .pnode:hover { border-color: var(--cyan); transform: translateY(-2px); }
+      .pconn { width: clamp(18px, 3.4vw, 46px); height: 1px; background: var(--line-2); position: relative; flex: 0 0 auto; }
+      .pconn::after {
+        content: ""; position: absolute; right: -1px; top: 50%; transform: translateY(-50%);
+        border-left: 6px solid var(--line-2); border-top: 4px solid transparent; border-bottom: 4px solid transparent;
+      }
+      .pconn .flow {
+        position: absolute; top: 50%; left: 0; width: 6px; height: 6px; margin-top: -3px; border-radius: 50%;
+        background: var(--cyan-bright); box-shadow: 0 0 7px var(--cyan); opacity: 0;
+      }
+      .proj-page.in .pconn .flow { animation: flow 1.5s linear infinite; opacity: 1; }
+      .sys-card:hover .pconn .flow { animation: flow 1.2s linear infinite; opacity: 1; }
+      @keyframes flow { from { left: 0; } to { left: 100%; } }
+
+      /* ---------- systems grid (one page, all projects) ---------- */
+      .sys-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+      .sys-card {
+        display: flex; flex-direction: column; border: 1px solid var(--line);
+        background: linear-gradient(180deg, rgba(var(--accent-rgb),0.025), transparent 42%), var(--panel);
+        padding: clamp(16px, 1.8vw, 24px);
+        transition: border-color 0.2s ease, transform 0.24s var(--ease), box-shadow 0.24s ease;
+      }
+      .sys-card:hover { border-color: rgba(var(--accent-rgb),0.4); transform: translateY(-3px); box-shadow: 0 18px 40px -26px rgba(0,0,0,0.8), -2px 0 0 0 var(--cyan); }
+      .sys-card-top { display: flex; align-items: center; gap: 12px; }
+      .sys-card-top .kind { flex: 1; }
+      .sys-card-top .go { color: var(--muted); font-family: var(--mono); font-size: 14px; transition: color 0.18s ease, transform 0.18s ease; }
+      .sys-card:hover .go { color: var(--cyan); transform: translate(2px, -2px); }
+      .sys-card h3 { font-size: clamp(1.1rem, 1.7vw, 1.45rem); margin: 11px 0 0; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+      .sys-card .one { color: var(--muted); margin: 8px 0 0; font-size: 0.94rem; }
+      .pipe.small { margin: 14px 0 4px; opacity: 0.9; transition: opacity 0.2s ease; }
+      .pipe.small .pnode { font-size: 10px; padding: 5px 9px; color: var(--muted); border-color: var(--line); background: transparent; }
+      .pipe.small .pnode:first-child { border-color: rgba(var(--accent-rgb), 0.45); color: var(--accent); background: transparent; }
+      .pipe.small .pconn { width: clamp(8px, 1.4vw, 16px); background: var(--line); }
+      .pipe.small .pconn::after { border-left-color: var(--line); border-left-width: 5px; border-top-width: 3px; border-bottom-width: 3px; }
+      .sys-card:hover .pipe.small { opacity: 1; }
+      .sys-card:hover .pipe.small .pnode { color: var(--text); border-color: var(--line-2); }
+      .sys-card:hover .pipe.small .pnode:first-child { color: var(--cyan-bright); border-color: var(--cyan); }
+      .sys-card .tags { margin-top: 12px; }
+      .sys-card .tag { font-size: 10.5px; padding: 3px 8px; }
+
+      .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+      .tag { font-family: var(--mono); font-size: 11.5px; color: var(--muted); border: 1px solid var(--line); padding: 4px 11px; border-radius: 3px; }
+
+      /* ---------- section header (shared) ---------- */
+      .sec-head h2 { font-size: clamp(1.7rem, 3.6vw, 2.7rem); letter-spacing: -0.01em; margin: 16px 0 0; }
+      .sec-head { margin-bottom: clamp(28px, 5vh, 52px); }
+
+      /* ---------- experience ---------- */
+      .trace { position: relative; padding-left: 30px; }
+      .trace::before { content: ""; position: absolute; left: 7px; top: 8px; bottom: 8px; width: 1px; background: var(--line-2); }
+      .span { position: relative; padding: 0 0 clamp(26px, 4vh, 44px); }
+      .span:last-child { padding-bottom: 0; }
+      .span::before {
+        content: ""; position: absolute; left: -27px; top: 4px; width: 13px; height: 13px;
+        border: 1px solid var(--cyan); background: var(--bg); box-shadow: 0 0 0 4px var(--bg);
+      }
+      .span.active::before { background: var(--cyan); box-shadow: 0 0 10px var(--cyan), 0 0 0 4px var(--bg); }
+      .span .when { font-family: var(--mono); font-size: 12.5px; color: var(--cyan); }
+      .span h3 { font-size: clamp(1.15rem, 2vw, 1.45rem); margin: 6px 0 2px; }
+      .span .org { color: var(--muted); font-family: var(--mono); font-size: 12.5px; }
+      .span ul { list-style: none; padding: 0; margin: 14px 0 0; display: grid; gap: 9px; }
+      .span li { padding-left: 20px; position: relative; color: var(--muted); font-size: 0.98rem; }
+      .span li::before { content: "▹"; position: absolute; left: 0; color: var(--cyan); }
+      .span .chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+
+      /* ---------- stack (layered architecture) ---------- */
+      .stack-layers { border-top: 1px solid var(--line); }
+      .layer {
+        display: grid; grid-template-columns: minmax(210px, 0.92fr) 2.3fr; gap: clamp(16px, 3vw, 52px);
+        align-items: center; position: relative;
+        padding: clamp(15px, 2.5vh, 30px) clamp(6px, 1vw, 18px);
+        border-bottom: 1px solid var(--line);
+        transition: background 0.28s ease, padding-left 0.28s var(--ease);
+      }
+      .layer::before {
+        content: ""; position: absolute; left: 0; top: -1px; bottom: -1px; width: 2px;
+        background: var(--cyan); transform: scaleY(0); transform-origin: top; transition: transform 0.3s var(--ease);
+      }
+      .layer:hover { background: linear-gradient(90deg, rgba(var(--accent-rgb), 0.06), transparent 72%); padding-left: clamp(12px, 1.8vw, 24px); }
+      .layer:hover::before { transform: scaleY(1); }
+      .layer-meta { display: flex; align-items: baseline; gap: 12px; }
+      .layer-meta .lx { font-family: var(--mono); font-size: 12px; color: var(--cyan); }
+      .layer-meta h4 { margin: 0; font-weight: 600; letter-spacing: -0.01em; color: var(--head); font-size: clamp(1.05rem, 1.9vw, 1.55rem); }
+      .layer-meta .ct { font-family: var(--mono); font-size: 11px; color: var(--dim); margin-left: auto; }
+      .layer-tools { display: flex; flex-wrap: wrap; gap: 8px; }
+      .layer-tools span {
+        font-family: var(--mono); font-size: 12.5px; color: var(--muted);
+        border: 1px solid var(--line); padding: 7px 13px; border-radius: 4px;
+        transition: color 0.16s ease, border-color 0.16s ease, background 0.16s ease, transform 0.16s ease;
+      }
+      .layer:hover .layer-tools span { border-color: var(--line-2); color: var(--text); }
+      .layer-tools span:hover { border-color: var(--cyan); color: var(--cyan); background: var(--cyan-dim); transform: translateY(-2px); }
+
+      /* ---------- contact ---------- */
+      .contact h2 { font-size: clamp(2rem, 5.5vw, 4rem); max-width: 16ch; letter-spacing: -0.02em; margin: 16px 0 0; }
+      .contact .links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: clamp(26px, 4vh, 44px); }
+      .contact .foot { margin-top: clamp(34px, 6vh, 60px); font-family: var(--mono); font-size: 12px; color: var(--dim); display: flex; gap: 18px; flex-wrap: wrap; }
+
+      /* ---------- dot nav ---------- */
+      .dotnav {
+        position: fixed; right: clamp(14px, 2.4vw, 30px); top: 50%; transform: translateY(-50%); z-index: 30;
+        display: flex; flex-direction: column; gap: 16px; align-items: flex-end;
+      }
+      .dot { position: relative; width: 10px; height: 10px; display: grid; place-items: center; cursor: pointer; background: none; border: 0; padding: 0; }
+      .dot::after { content: ""; width: 7px; height: 7px; border-radius: 50%; border: 1px solid var(--line-2); transition: all 0.25s var(--ease); }
+      .dot:hover::after { border-color: var(--cyan); }
+      .dot.active::after { background: var(--cyan); border-color: var(--cyan); box-shadow: 0 0 10px var(--cyan); transform: scale(1.15); }
+      .dot .lbl {
+        position: absolute; right: 20px; top: 50%; transform: translateY(-50%) translateX(6px);
+        font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted);
+        white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s ease, transform 0.2s ease;
+      }
+      .dot:hover .lbl, .dot.active .lbl { opacity: 1; transform: translateY(-50%) translateX(0); }
+      .dot.active .lbl { color: var(--cyan); }
+
+      /* progress bar */
+      .progress { position: fixed; left: 0; top: 0; height: 2px; width: 0%; background: linear-gradient(90deg, var(--accent), var(--accent-bright)); z-index: 40; transition: width 0.15s linear; }
+
+      /* ---------- entrance transitions ---------- */
+      @media (prefers-reduced-motion: no-preference) {
+        html.js .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+        html.js .page.in .reveal { opacity: 1; transform: none; }
+        html.js .page.in .reveal:nth-child(1) { transition-delay: 0.05s; }
+        html.js .page.in .reveal:nth-child(2) { transition-delay: 0.13s; }
+        html.js .page.in .reveal:nth-child(3) { transition-delay: 0.21s; }
+        html.js .page.in .reveal:nth-child(4) { transition-delay: 0.29s; }
+        html.js .page.in .reveal:nth-child(5) { transition-delay: 0.37s; }
+        html.js .page.in .reveal:nth-child(6) { transition-delay: 0.45s; }
+        html.js .hero-inner.reveal { transition-delay: 0s; }
+        /* guaranteed-visible fallback: if the timeline is frozen (background tab,
+           capture tools), this forces the end state instantly so content is never stuck hidden */
+        html.js .reveal.shown { opacity: 1 !important; transform: none !important; transition: none !important; }
+      }
+
+      /* core breathing glow */
+      @media (prefers-reduced-motion: no-preference) {
+        .node-box.core { animation: coreGlow 3.2s ease-in-out infinite; }
+        @keyframes coreGlow {
+          0%, 100% { filter: drop-shadow(0 0 1px rgba(var(--accent-rgb), 0.2)); }
+          50% { filter: drop-shadow(0 0 7px rgba(var(--accent-rgb), 0.55)); }
+        }
+      }
+
+      /* ---------- responsive ---------- */
+      @media (max-width: 1080px) { .brand small { display: none; } }
+      @media (max-width: 880px) {
+        .hero-inner { grid-template-columns: 1fr; gap: 28px; }
+        .graph-wrap { order: -1; max-width: 420px; margin-inline: auto; }
+        .page { padding-left: clamp(22px, 7vw, 56px); padding-right: clamp(22px, 7vw, 56px); }
+        .dotnav { right: 12px; gap: 13px; }
+        .dot .lbl { display: none; }
+      }
+      @media (max-width: 620px) {
+        body { font-size: 15px; }
+        .snap { scroll-snap-type: y proximity; }
+        .page { justify-content: flex-start; padding-top: 88px; }
+        .hero.page { justify-content: center; }
+        .pipe { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; }
+        .pipe::-webkit-scrollbar { display: none; }
+        .pnode, .pconn { flex: 0 0 auto; }
+        .page-num { font-size: 4.2rem; top: 74px; }
+        .top-right .status span { display: none; }
+        .scroll-hint { display: none; }
+        .layer { grid-template-columns: 1fr; gap: 12px; align-items: start; padding-block: 18px; }
+      }
+
+      @media (max-height: 720px) and (min-width: 621px) {
+        .snap { scroll-snap-type: y proximity; }
+        .page { justify-content: flex-start; padding-top: clamp(84px, 12vh, 100px); }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .snap { scroll-behavior: auto; }
+        .pkt { display: none; }
+        .proj-page .pnode { animation: none; }
+        .proj-page.in .pconn .flow { animation: none; opacity: 0; }
+        * { transition-duration: 0.01ms !important; }
+      }
+    </style>
   </head>
   <body>
-    <div class="scroll-progress" id="scrollProgress" role="progressbar" aria-hidden="true"></div>
-    <div class="cursor-glow" aria-hidden="true"></div>
+    <div class="grid-bg"></div>
     <canvas id="flow-field" aria-hidden="true"></canvas>
-    <div class="site-shell">
-      <header class="site-header">
-        <a class="brand" href="#top" aria-label="Mounika Grandhi home">
-          <span class="brand-mark">MG</span>
-          <span>Mounika Grandhi</span>
-        </a>
-        <nav class="nav-links" aria-label="Primary navigation">
-          <a href="#about">About</a>
-          <a href="#projects">Projects</a>
-          <a href="#build">Build</a>
-          <a href="#experience">Experience</a>
-          <a href="#contact">Contact</a>
-        </nav>
-      </header>
-      <main id="top">
-        <section class="hero section-reveal">
-          <div class="hero-copy">
-            <p class="eyebrow">AI Engineer · Hyderabad, India</p>
-            <h1>Hello, I’m <span>Mounika.</span><br />I build AI systems that ship.</h1>
-            <div class="availability-pill">Open to AI engineering roles</div>
-            <p class="hero-text">
-              AI Engineer building agentic workflows, RAG systems, conversational systems,
-              and production LLM backends across OpenAI, Anthropic, Gemini, Grok, AWS, and GCP.
-            </p>
-            <p class="hero-principle">
-              Designing AI workflows that are grounded, observable, and reliable enough for real product teams.
-            </p>
-            <div class="hero-actions">
-              <a class="button primary" href="#projects">View projects</a>
-              <a class="button ghost" href="assets/Mounika_Grandhi_Resume.pdf" target="_blank" rel="noreferrer">
-                Resume
-              </a>
-              <a class="icon-link" href="https://github.com/mouni298" target="_blank" rel="noreferrer" aria-label="GitHub profile">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3.3-.4 6.7-1.6 6.7-7.2a5.6 5.6 0 0 0-1.5-3.9 5.2 5.2 0 0 0-.1-3.8s-1.2-.4-4 1.5a13.7 13.7 0 0 0-7.2 0C5.1-.8 3.9-.4 3.9-.4a5.2 5.2 0 0 0-.1 3.8 5.6 5.6 0 0 0-1.5 3.9c0 5.6 3.4 6.8 6.7 7.2a4.3 4.3 0 0 0-1 2.7V22"/><path d="M8 18c-4.5 1.8-4.5-2.2-6-2.5"/></svg>
-              </a>
-              <a class="icon-link" href="https://www.linkedin.com/in/mounika-grandhi" target="_blank" rel="noreferrer" aria-label="LinkedIn profile">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6Z"/><path d="M2 9h4v12H2z"/><path d="M4 5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/></svg>
-              </a>
+    <div class="progress" id="progress"></div>
+
+    <header class="topbar">
+      <a class="brand" href="#hero" data-jump="0">
+        <span class="mark">MG</span>
+        <span>Mounika Grandhi <small>// AI&nbsp;ENGINEER</small></span>
+      </a>
+      <div class="top-right">
+        <span class="status"><i></i> <span>open to roles</span></span>
+        <a href="assets/Mounika_Grandhi_Resume.pdf" target="_blank" rel="noreferrer">résumé</a>
+      </div>
+    </header>
+
+    <nav class="dotnav" id="dotnav" aria-label="Section navigation"></nav>
+
+    <main class="snap" id="snap">
+      <!-- hero -->
+      <section class="page hero" id="hero" data-label="Intro">
+        <div class="page-inner hero-inner reveal">
+          <div>
+            <p class="eyebrow">AI Systems Engineer</p>
+            <h1>I design systems that <b>think</b> — and stay <b>accountable</b>.</h1>
+            <p class="lead">Agentic workflows, RAG, and production LLM backends. Grounded, observable, and built to survive real traffic.</p>
+            <div class="cta">
+              <a class="btn primary" data-jump href="#systems">View systems →</a>
+              <a class="btn" href="assets/Mounika_Grandhi_Resume.pdf" target="_blank" rel="noreferrer">Résumé</a>
             </div>
           </div>
+          <div class="graph-wrap">
+            <svg class="graph" viewBox="0 0 460 380" role="img" aria-label="Architecture diagram of Mounika's focus areas">
+              <defs>
+                <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M0 0 L10 5 L0 10 z" fill="rgba(122,180,210,0.45)" />
+                </marker>
+              </defs>
+              <g id="edges"></g>
+              <g id="packets"></g>
+              <g id="nodes"></g>
+            </svg>
+          </div>
+        </div>
+        <div class="scroll-hint" aria-hidden="true"><span class="m"></span>Scroll</div>
+      </section>
 
-        </section>
+      <!-- project pages injected here -->
 
-        <section class="proof-strip section-reveal" data-reveal-stagger aria-label="AI engineering focus areas">
-          <div>
-            <strong>Agentic Workflows</strong>
-            <span>multi-agent systems, tool use, HITL flows, and long-term memory</span>
+      <!-- experience -->
+      <section class="page" id="experience" data-label="Experience">
+        <span class="page-num" data-num></span>
+        <div class="page-inner">
+          <div class="sec-head reveal">
+            <p class="eyebrow">Execution Trace</p>
+            <h2>Production GenAI, two teams.</h2>
           </div>
-          <div>
-            <strong>Document Intelligence</strong>
-            <span>structured extraction, hybrid RAG, retrieval, grounding, and validation</span>
-          </div>
-          <div>
-            <strong>Conversational Systems</strong>
-            <span>assistants, analytics workflows, and natural-language product interfaces</span>
-          </div>
-          <div>
-            <strong>Production AI</strong>
-            <span>APIs, async pipelines, observability, evaluation, and deployment</span>
-          </div>
-        </section>
+          <div class="trace reveal" id="trace"></div>
+        </div>
+      </section>
 
-        <section id="about" class="content-section split-section section-reveal">
-          <div class="section-heading" data-reveal>
-            <p class="eyebrow">01 · About</p>
-            <h2>Useful, observable, <span>grounded by design.</span></h2>
+      <!-- stack -->
+      <section class="page" id="stack" data-label="Stack">
+        <span class="page-num" data-num></span>
+        <div class="page-inner">
+          <div class="sec-head reveal">
+            <p class="eyebrow">Stack Registry</p>
+            <h2>The tools behind systems that ship.</h2>
           </div>
-          <div class="about-copy">
-            <p data-reveal>
-              I’m an AI Engineer focused on building practical GenAI systems for real
-              product workflows, especially document intelligence, retrieval, structured
-              extraction, and backend orchestration.
-            </p>
-            <p data-reveal>
-              I turn vague product ideas into AI systems with clear inputs, reliable
-              outputs, measurable behavior, and APIs that teams can actually integrate.
-              My work sits between LLM application engineering and backend software:
-              context design, RAG, prompt workflows, async pipelines, validation layers,
-              observability, and evaluation.
-            </p>
-            <p data-reveal>
-              I care less about flashy demos and more about AI that survives production
-              pressure: structured outputs, traceable behavior, human-review paths,
-              failure handling, and enough instrumentation to debug and improve what ships.
-            </p>
-          </div>
-        </section>
+          <div class="stack-layers reveal" id="stackLayers"></div>
+        </div>
+      </section>
 
-        <section id="projects" class="content-section section-reveal">
-          <div class="section-heading" data-reveal>
-            <p class="eyebrow">02 · Selected Projects</p>
-            <h2><span>Working architecture</span> over polished demos.</h2>
+      <!-- contact -->
+      <section class="page contact" id="contact" data-label="Contact">
+        <span class="page-num" data-num></span>
+        <div class="page-inner">
+          <p class="eyebrow reveal">Connect</p>
+          <h2 class="reveal">Let's build AI that has to work in the real world.</h2>
+          <div class="links reveal" id="contactLinks"></div>
+          <div class="foot reveal">
+            <span>Mounika Grandhi — AI Engineer</span>
+            <span>Hyderabad, India · 2026</span>
           </div>
+        </div>
+      </section>
+    </main>
 
-          <div class="project-list">
-            <article class="project-row" data-reveal>
-              <div class="project-index">01</div>
-              <div class="project-body">
-                <div class="project-top">
-                  <div class="project-title-line">
-                    <h3>Swaram AI</h3>
-                    <a class="project-github" href="https://github.com/mouni298/Swaram" target="_blank" rel="noreferrer" aria-label="Swaram AI GitHub repository">
-                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3.3-.4 6.7-1.6 6.7-7.2a5.6 5.6 0 0 0-1.5-3.9 5.2 5.2 0 0 0-.1-3.8s-1.2-.4-4 1.5a13.7 13.7 0 0 0-7.2 0C5.1-.8 3.9-.4 3.9-.4a5.2 5.2 0 0 0-.1 3.8 5.6 5.6 0 0 0-1.5 3.9c0 5.6 3.4 6.8 6.7 7.2a4.3 4.3 0 0 0-1 2.7V22"/><path d="M8 18c-4.5 1.8-4.5-2.2-6-2.5"/></svg>
-                    </a>
-                  </div>
-                  <span>Open-source SDK for voice AI agents without a hosted orchestration platform.</span>
-                </div>
-                <p>
-                  A TypeScript SDK for building domain-agnostic voice support agents,
-                  coordinating VAD, STT, LLM reasoning, tool calls, TTS, transcripts,
-                  interruptions, and telephony transport.
-                </p>
-                <ul class="tag-list">
-                  <li>TypeScript</li>
-                  <li>Voice Agents</li>
-                  <li>Groq</li>
-                  <li>Ollama</li>
-                  <li>Whisper.cpp</li>
-                  <li>Kokoro TTS</li>
-                  <li>Twilio</li>
-                </ul>
+    <script src="data.js"></script>
+    <script>
+      const MG = window.MG;
+      document.documentElement.classList.add("js");
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const snap = document.getElementById("snap");
+
+      /* ---------- hero graph ---------- */
+      (function graph() {
+        const core = { x: 230, y: 190, w: 132, h: 52, label: "Mounika Grandhi", sub: "AI ENGINEER", core: true };
+        const sats = [
+          { x: 70, y: 56, w: 118, h: 40, label: "Agentic", sub: "MULTI-AGENT · TOOLS" },
+          { x: 300, y: 44, w: 118, h: 40, label: "RAG", sub: "RETRIEVAL · GROUNDING" },
+          { x: 50, y: 312, w: 124, h: 40, label: "Production LLM", sub: "APIS · ASYNC · OBS" },
+          { x: 300, y: 320, w: 124, h: 40, label: "Evaluation", sub: "TRACING · BENCHMARKS" },
+        ];
+        const cx = core.x + core.w / 2, cy = core.y + core.h / 2;
+        const edges = document.getElementById("edges");
+        const packets = document.getElementById("packets");
+        const nodes = document.getElementById("nodes");
+        const NS = "http://www.w3.org/2000/svg";
+
+        function box(n) {
+          const g = document.createElementNS(NS, "g");
+          const r = document.createElementNS(NS, "rect");
+          r.setAttribute("x", n.x); r.setAttribute("y", n.y);
+          r.setAttribute("width", n.w); r.setAttribute("height", n.h); r.setAttribute("rx", 3);
+          r.setAttribute("class", "node-box" + (n.core ? " core" : ""));
+          g.appendChild(r);
+          const t = document.createElementNS(NS, "text");
+          t.setAttribute("x", n.x + n.w / 2); t.setAttribute("y", n.y + (n.sub ? n.h / 2 - 3 : n.h / 2 + 4));
+          t.setAttribute("text-anchor", "middle");
+          t.setAttribute("class", "node-label" + (n.core ? " core" : ""));
+          t.textContent = n.label; g.appendChild(t);
+          if (n.sub) {
+            const s = document.createElementNS(NS, "text");
+            s.setAttribute("x", n.x + n.w / 2); s.setAttribute("y", n.y + n.h / 2 + 11);
+            s.setAttribute("text-anchor", "middle"); s.setAttribute("class", "node-sub");
+            s.textContent = n.sub; g.appendChild(s);
+          }
+          return g;
+        }
+        sats.forEach((n, i) => {
+          const sx = n.x + n.w / 2, sy = n.y + n.h / 2;
+          const path = document.createElementNS(NS, "path");
+          path.setAttribute("d", `M ${sx} ${sy} C ${(sx + cx) / 2} ${sy}, ${(sx + cx) / 2} ${cy}, ${cx} ${cy}`);
+          path.setAttribute("class", "edge"); path.setAttribute("marker-end", "url(#ah)"); path.setAttribute("id", "edge" + i);
+          edges.appendChild(path);
+          if (!reduceMotion) {
+            const dot = document.createElementNS(NS, "circle");
+            dot.setAttribute("r", "2.6"); dot.setAttribute("class", "pkt");
+            const am = document.createElementNS(NS, "animateMotion");
+            am.setAttribute("dur", (2.4 + i * 0.5) + "s"); am.setAttribute("repeatCount", "indefinite"); am.setAttribute("begin", (i * 0.6) + "s");
+            const mp = document.createElementNS(NS, "mpath");
+            mp.setAttributeNS("http://www.w3.org/1999/xlink", "href", "#edge" + i);
+            am.appendChild(mp); dot.appendChild(am); packets.appendChild(dot);
+          }
+        });
+        sats.forEach((n) => nodes.appendChild(box(n)));
+        nodes.appendChild(box(core));
+      })();
+
+      /* ---------- systems page (all projects in one grid) ---------- */
+      const heroEl = document.getElementById("hero");
+      (function buildSystems() {
+        const cards = MG.projects.map((p) => {
+          const pipe = p.nodes
+            .map((n, i) => `${i ? '<span class="pconn"><span class="flow"></span></span>' : ""}<span class="pnode">${n}</span>`)
+            .join("");
+          return `
+            <a class="sys-card" href="${p.repo}" target="_blank" rel="noreferrer" aria-label="${p.name} repository">
+              <div class="sys-card-top">
+                <span class="sys-id">SYS-0${p.id}</span>
+                <span class="kind">${p.kind}</span>
+                <span class="go" aria-hidden="true">↗</span>
               </div>
-            </article>
+              <h3>${p.name} ${p.status ? `<span class="badge">${p.status}</span>` : ""}</h3>
+              <p class="one">${p.one}</p>
+              <div class="pipe small">${pipe}</div>
+              <div class="tags">${p.tags.map((t) => `<span class="tag">${t}</span>`).join("")}</div>
+            </a>`;
+        }).join("");
+        const sec = document.createElement("section");
+        sec.className = "page";
+        sec.id = "systems";
+        sec.setAttribute("data-label", "Systems");
+        sec.innerHTML = `
+          <span class="page-num" data-num></span>
+          <div class="page-inner">
+            <div class="sec-head reveal">
+              <p class="eyebrow">Selected Systems</p>
+              <h2>Working architecture over polished demos.</h2>
+            </div>
+            <div class="sys-grid reveal">${cards}</div>
+          </div>`;
+        heroEl.after(sec);
+      })();
 
-            <article class="project-row" data-reveal>
-              <div class="project-index">02</div>
-              <div class="project-body">
-                <div class="project-top">
-                  <div class="project-title-line">
-                    <h3>Content Automator</h3>
-                    <a class="project-github" href="https://github.com/mouni298/content-automator" target="_blank" rel="noreferrer" aria-label="Content Automator GitHub repository">
-                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3.3-.4 6.7-1.6 6.7-7.2a5.6 5.6 0 0 0-1.5-3.9 5.2 5.2 0 0 0-.1-3.8s-1.2-.4-4 1.5a13.7 13.7 0 0 0-7.2 0C5.1-.8 3.9-.4 3.9-.4a5.2 5.2 0 0 0-.1 3.8 5.6 5.6 0 0 0-1.5 3.9c0 5.6 3.4 6.8 6.7 7.2a4.3 4.3 0 0 0-1 2.7V22"/><path d="M8 18c-4.5 1.8-4.5-2.2-6-2.5"/></svg>
-                    </a>
-                  </div>
-                  <span>Agent-directed content pipeline with deterministic rendering and human review.</span>
-                </div>
-                <p>
-                  A Google ADK pipeline where an LLM Director chooses strategy and style,
-                  while deterministic Python services handle research, script generation,
-                  image sourcing, TTS, captions, FFmpeg assembly, Telegram review, and
-                  approval-gated publishing.
-                </p>
-                <ul class="tag-list">
-                  <li>Python</li>
-                  <li>Google ADK</li>
-                  <li>Gemini</li>
-                  <li>FFmpeg</li>
-                  <li>Telegram Bot</li>
-                  <li>YouTube API</li>
-                </ul>
-              </div>
-            </article>
+      /* ---------- experience ---------- */
+      const trace = document.getElementById("trace");
+      MG.experience.forEach((e, i) => {
+        const el = document.createElement("div");
+        el.className = "span" + (i === 0 ? " active" : "");
+        el.innerHTML = `
+          <div class="when">${e.when}</div>
+          <h3>${e.role}</h3>
+          <div class="org">${e.org}</div>
+          <ul>${e.points.map((pt) => `<li>${pt}</li>`).join("")}</ul>
+          <div class="chips">${e.tags.map((t) => `<span class="tag">${t}</span>`).join("")}</div>`;
+        trace.appendChild(el);
+      });
 
-            <article class="project-row" data-reveal>
-              <div class="project-index">03</div>
-              <div class="project-body">
-                <div class="project-top">
-                  <div class="project-title-line">
-                    <h3>Doc Extractor</h3>
-                    <a class="project-github" href="https://github.com/mouni298/ai-doc-extractor" target="_blank" rel="noreferrer" aria-label="Doc Extractor GitHub repository">
-                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3.3-.4 6.7-1.6 6.7-7.2a5.6 5.6 0 0 0-1.5-3.9 5.2 5.2 0 0 0-.1-3.8s-1.2-.4-4 1.5a13.7 13.7 0 0 0-7.2 0C5.1-.8 3.9-.4 3.9-.4a5.2 5.2 0 0 0-.1 3.8 5.6 5.6 0 0 0-1.5 3.9c0 5.6 3.4 6.8 6.7 7.2a4.3 4.3 0 0 0-1 2.7V22"/><path d="M8 18c-4.5 1.8-4.5-2.2-6-2.5"/></svg>
-                    </a>
-                  </div>
-                  <span>Template-driven app that turns documents into confidence-scored structured data.</span>
-                </div>
-                <p>
-                  A full-stack document extraction app with custom templates,
-                  PDF/DOCX/image parsing, Groq-powered JSON extraction, confidence
-                  scoring, persisted results, batch jobs, and a Next.js interface.
-                </p>
-                <ul class="tag-list">
-                  <li>FastAPI</li>
-                  <li>Next.js</li>
-                  <li>Groq</li>
-                  <li>Vision LLM</li>
-                  <li>SQLModel</li>
-                  <li>Celery</li>
-                </ul>
-              </div>
-            </article>
+      /* ---------- stack (layered) ---------- */
+      const stackLayers = document.getElementById("stackLayers");
+      MG.stack.forEach((g, i) => {
+        const el = document.createElement("div");
+        el.className = "layer";
+        el.innerHTML = `
+          <div class="layer-meta">
+            <span class="lx">L0${i + 1}</span>
+            <h4>${g.group}</h4>
+          </div>
+          <div class="layer-tools">${g.items.map((t) => `<span>${t}</span>`).join("")}</div>`;
+        stackLayers.appendChild(el);
+      });
 
-            <article class="project-row" data-reveal>
-              <div class="project-index">04</div>
-              <div class="project-body">
-                <div class="project-top">
-                  <div class="project-title-line">
-                    <h3>CompIntel</h3>
-                    <span class="project-status">Currently building</span>
-                  </div>
-                  <span>AI competitive-research desk for sourced market and competitor reports.</span>
-                </div>
-                <p>
-                  A multi-agent + RAG system that decomposes competitor research into
-                  analyst agents, retrieves evidence from documents and web search,
-                  verifies claims with citations, and routes final reports through a
-                  human approval gate.
-                </p>
-                <ul class="tag-list">
-                  <li>LangGraph</li>
-                  <li>Hybrid RAG</li>
-                  <li>FastAPI</li>
-                  <li>Chroma</li>
-                  <li>HITL</li>
-                  <li>Evals</li>
-                </ul>
-              </div>
-            </article>
-          </div>
-        </section>
+      /* ---------- contact ---------- */
+      const cl = document.getElementById("contactLinks");
+      [["Email", "mailto:" + MG.email, true], ["GitHub", MG.github], ["LinkedIn", MG.linkedin], ["Résumé", MG.resume]]
+        .forEach(([label, href, primary]) => {
+          const a = document.createElement("a");
+          a.className = "btn" + (primary ? " primary" : "");
+          a.href = href; a.textContent = label;
+          if (!href.startsWith("mailto")) { a.target = "_blank"; a.rel = "noreferrer"; }
+          cl.appendChild(a);
+        });
 
-        <section id="build" class="content-section split-section section-reveal">
-          <div class="section-heading sticky-heading" data-reveal>
-            <p class="eyebrow">03 · How I Build</p>
-            <h2>Using AI with <span>reliability, deployment, and observability.</span></h2>
-          </div>
-          <div class="capability-grid" data-reveal-stagger>
-            <article>
-              <h3>How I Use AI</h3>
-              <p>Use LLMs where they improve reasoning, retrieval, summarization, and workflow automation, with clear boundaries around tool use and human review.</p>
-            </article>
-            <article>
-              <h3>Deployments</h3>
-              <p>Ship AI services through backend APIs, Dockerized services, cloud integrations, provider routing, and reliable connections to product data and tools.</p>
-            </article>
-            <article>
-              <h3>Monitoring, Evaluation & Observability</h3>
-              <p>Track traces, latency, token usage, retrieval quality, grounding behavior, and evaluation signals so model behavior can be debugged and improved.</p>
-            </article>
-          </div>
-        </section>
+      /* ---------- page indexing, numbers, dot nav ---------- */
+      const pages = [...document.querySelectorAll(".page")];
+      pages.forEach((pg, i) => {
+        const num = pg.querySelector("[data-num]");
+        if (num) num.textContent = String(i + 1).padStart(2, "0");
+      });
 
-        <section id="experience" class="content-section section-reveal">
-          <div class="section-heading" data-reveal>
-            <p class="eyebrow">04 · Experience</p>
-            <h2><span>Production GenAI</span> across startups and enterprise modernization.</h2>
-          </div>
-          <div class="timeline">
-            <article class="timeline-item" data-reveal>
-              <div class="timeline-meta">
-                <span>Jul 2025 · Present</span>
-                <h3>AI Engineer · Inncircles</h3>
-                <small>Agentic AI · RAG · Analytics</small>
-                <div class="metric-cluster" aria-label="Inncircles focus areas">
-                  <b>Tool integrations</b>
-                  <b>4 LLM providers</b>
-                  <b>LangSmith tracing</b>
-                </div>
-              </div>
-              <div class="timeline-copy">
-                <p>
-                  Building production AI systems for construction workflows, with
-                  multi-agent orchestration, retrieval, model routing, external tools,
-                  and stakeholder-facing conversational experiences.
-                </p>
-                <ul>
-                  <li>Built multi-agent AI workflows for construction operations, enabling automated analysis from workflow data.</li>
-                  <li>Designed hybrid RAG with chunking, semantic retrieval, token-aware batching, and grounding guardrails.</li>
-                  <li>Integrated MCP tools, human-in-the-loop flows, and long-term memory patterns across operational workflows.</li>
-                  <li>Added multi-modal and multi-provider routing across OpenAI, Anthropic, Gemini with Pydantic outputs and LangSmith tracing.</li>
-                </ul>
-              </div>
-            </article>
-            <article class="timeline-item" data-reveal>
-              <div class="timeline-meta">
-                <span>Aug 2022 · Jun 2025</span>
-                <h3>Digital Specialist Engineer · Infosys</h3>
-                <small>Legacy modernization · RAG · Evaluation</small>
-                <div class="metric-cluster" aria-label="Infosys focus areas">
-                  <b>Modernization AI</b>
-                  <b>5+ codebases</b>
-                  <b>Evaluation pipelines</b>
-                </div>
-              </div>
-              <div class="timeline-copy">
-                <p>
-                  Shipped GenAI capabilities for enterprise modernization, helping
-                  teams understand, document, retrieve, and validate legacy system
-                  knowledge at scale.
-                </p>
-                <ul>
-                  <li>Contributed to an AI migration platform for reducing manual effort in legacy modernization workflows.</li>
-                  <li>Implemented RAG-based QA chains across 5+ legacy codebases for reverse engineering and knowledge extraction.</li>
-                  <li>Built code summarization and BRD generation pipelines with LangChain, embeddings, and vector databases.</li>
-                  <li>Designed evaluation pipelines using BLEU, CodeBLEU, and custom benchmarks to track output quality and hallucinations.</li>
-                </ul>
-              </div>
-            </article>
-          </div>
-        </section>
+      const dotnav = document.getElementById("dotnav");
+      pages.forEach((pg, i) => {
+        const b = document.createElement("button");
+        b.className = "dot";
+        b.setAttribute("aria-label", pg.dataset.label || "Section " + (i + 1));
+        b.innerHTML = `<span class="lbl">${pg.dataset.label || ""}</span>`;
+        b.addEventListener("click", () => pg.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" }));
+        dotnav.appendChild(b);
+      });
+      const dots = [...dotnav.children];
 
-        <section id="stack" class="content-section section-reveal">
-          <div class="section-heading" data-reveal>
-            <p class="eyebrow">05 · Stack</p>
-            <h2>The stack behind <span>systems that ship.</span></h2>
-          </div>
-          <div class="stack-groups" data-reveal-stagger aria-label="Technical skills">
-            <article>
-              <h3>Agentic AI</h3>
-              <p><strong>Core:</strong> LangChain · LangGraph · DeepAgents · Google ADK · MCP</p>
-            </article>
-            <article>
-              <h3>RAG & Data</h3>
-              <p><strong>Core:</strong> LlamaIndex · Milvus · ChromaDB · Semantic Search<br /><span>Used:</span> MySQL · MongoDB</p>
-            </article>
-            <article>
-              <h3>LLM Providers</h3>
-              <p><strong>Core:</strong> OpenAI · Anthropic Claude · Google Gemini · Grok<br /><span>Used:</span> Groq · HuggingFace</p>
-            </article>
-            <article>
-              <h3>Backend & Cloud</h3>
-              <p><strong>Core:</strong> Python · FastAPI · REST APIs · Docker · AWS · GCP<br /><span>Used:</span> Java · RabbitMQ</p>
-            </article>
-            <article>
-              <h3>Evaluation & LLMOps</h3>
-              <p><strong>Core:</strong> LangSmith · Prompt Engineering · Monitoring<br /><span>Used:</span> BLEU · CodeBLEU · CI/CD</p>
-            </article>
-          </div>
-        </section>
+      /* jump links (brand, CTA) */
+      document.querySelectorAll("[data-jump]").forEach((el) => {
+        el.addEventListener("click", (e) => {
+          e.preventDefault();
+          const t = el.getAttribute("href");
+          const target = t && document.querySelector(t);
+          if (target) target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
+        });
+      });
 
-        <section id="contact" class="contact-section section-reveal">
-          <p class="eyebrow">06 · Contact</p>
-          <h2>Let’s talk about <span>AI systems</span> that need to work in the real world.</h2>
-          <div class="contact-actions">
-            <a href="mailto:grandhimounika29@gmail.com" aria-label="Email Mounika Grandhi">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg>
-              <span>Email</span>
-            </a>
-            <a href="https://github.com/mouni298" target="_blank" rel="noreferrer" aria-label="Mounika Grandhi on GitHub">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3.3-.4 6.7-1.6 6.7-7.2a5.6 5.6 0 0 0-1.5-3.9 5.2 5.2 0 0 0-.1-3.8s-1.2-.4-4 1.5a13.7 13.7 0 0 0-7.2 0C5.1-.8 3.9-.4 3.9-.4a5.2 5.2 0 0 0-.1 3.8 5.6 5.6 0 0 0-1.5 3.9c0 5.6 3.4 6.8 6.7 7.2a4.3 4.3 0 0 0-1 2.7V22"/><path d="M8 18c-4.5 1.8-4.5-2.2-6-2.5"/></svg>
-              <span>GitHub</span>
-            </a>
-            <a href="https://www.linkedin.com/in/mounika-grandhi" target="_blank" rel="noreferrer" aria-label="Mounika Grandhi on LinkedIn">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6Z"/><path d="M2 9h4v12H2z"/><path d="M4 5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/></svg>
-              <span>LinkedIn</span>
-            </a>
-            <a href="assets/Mounika_Grandhi_Resume.pdf" target="_blank" rel="noreferrer" aria-label="Open resume">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><path d="M9 15h6"/><path d="M9 18h4"/></svg>
-              <span>Resume</span>
-            </a>
-          </div>
-          <p class="contact-meta">Hyderabad, India · Open to AI engineering roles and production GenAI collaborations.</p>
-        </section>
-        <footer class="site-footer">
-          <div class="footer-inner">
-            <span class="footer-name">Mounika Grandhi</span>
-            <span class="footer-meta">AI Engineer · Hyderabad, India · 2026</span>
-            <span class="footer-built">Built with HTML, CSS &amp; Vanilla JS</span>
-          </div>
-        </footer>
-      </main>
-    </div>
-    <script src="script.js?v=33"></script>
+      /* ---------- active page + reveal via IntersectionObserver ---------- */
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("in");
+              // safety net: ensure content is visible even if the animation
+              // timeline is frozen (background tab / capture tools)
+              const reveals = e.target.querySelectorAll(".reveal");
+              setTimeout(() => reveals.forEach((r) => r.classList.add("shown")), 820);
+              const i = pages.indexOf(e.target);
+              dots.forEach((d, di) => d.classList.toggle("active", di === i));
+              const ff = document.getElementById("flow-field");
+              if (ff) ff.style.opacity = i === 0 ? "0" : "1";
+            }
+          });
+        },
+        { root: snap, threshold: 0.5 }
+      );
+      pages.forEach((pg) => io.observe(pg));
+      // ensure first page is revealed immediately
+      pages[0].classList.add("in");
+      dots[0].classList.add("active");
+
+      /* ---------- progress bar + scroll-driven active/reveal (fallback for IO) ---------- */
+      const progress = document.getElementById("progress");
+      function revealPage(pg) {
+        if (!pg.classList.contains("in")) {
+          pg.classList.add("in");
+          const reveals = pg.querySelectorAll(".reveal");
+          setTimeout(() => reveals.forEach((r) => r.classList.add("shown")), 820);
+        }
+      }
+      let ticking = false;
+      const flowField = document.getElementById("flow-field");
+      function onScroll() {
+        const max = snap.scrollHeight - snap.clientHeight;
+        progress.style.width = (max > 0 ? (snap.scrollTop / max) * 100 : 0) + "%";
+        const center = snap.scrollTop + snap.clientHeight / 2;
+        let idx = 0;
+        for (let k = 0; k < pages.length; k++) { if (pages[k].offsetTop <= center) idx = k; }
+        dots.forEach((d, di) => d.classList.toggle("active", di === idx));
+        revealPage(pages[idx]);
+        if (pages[idx + 1]) revealPage(pages[idx + 1]); // pre-reveal next for snap
+        // starfield hidden on the intro/hero page, visible from the systems page on
+        if (flowField) flowField.style.opacity = idx === 0 ? "0" : "1";
+        ticking = false;
+      }
+      snap.addEventListener("scroll", () => {
+        if (!ticking) { ticking = true; requestAnimationFrame(onScroll); }
+      }, { passive: true });
+
+      /* ---------- keyboard nav ---------- */
+      window.addEventListener("keydown", (e) => {
+        const cur = dots.findIndex((d) => d.classList.contains("active"));
+        if (e.key === "ArrowDown" || e.key === "PageDown") { e.preventDefault(); pages[Math.min(pages.length - 1, cur + 1)].scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" }); }
+        if (e.key === "ArrowUp" || e.key === "PageUp") { e.preventDefault(); pages[Math.max(0, cur - 1)].scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" }); }
+      });
+    </script>
+
+    <script>
+      /* ---------- starfield background ---------- */
+      (function starfield() {
+        const c = document.getElementById("flow-field");
+        if (!c) return;
+        const ctx = c.getContext("2d");
+        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        let w, h, dpr, stars = [], raf;
+
+        function resize() {
+          dpr = Math.min(2, window.devicePixelRatio || 1);
+          w = window.innerWidth; h = window.innerHeight;
+          c.width = w * dpr; c.height = h * dpr;
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+        function make() {
+          const n = Math.round(Math.min(240, Math.max(70, (w * h) / 7000)));
+          stars = Array.from({ length: n }, () => ({
+            x: Math.random() * w,
+            y: Math.random() * h,
+            r: Math.random() * 1.25 + 0.3,
+            a: Math.random() * 0.55 + 0.25,
+            tw: Math.random() * 0.9 + 0.3,
+            ph: Math.random() * 6.2832,
+            drift: Math.random() * 0.12 + 0.02,
+            cyan: Math.random() < 0.22,
+          }));
+        }
+        function paint(t, twinkle) {
+          ctx.clearRect(0, 0, w, h);
+          for (const s of stars) {
+            if (!reduce) {
+              s.y -= s.drift;
+              if (s.y < -2) { s.y = h + 2; s.x = Math.random() * w; }
+            }
+            const tw = twinkle ? 0.55 + 0.45 * Math.sin(t * 0.001 * s.tw + s.ph) : 1;
+            const a = s.a * tw;
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.r, 0, 6.2832);
+            if (s.cyan) {
+              ctx.fillStyle = `rgba(120,210,235,${a})`;
+              ctx.shadowColor = "rgba(87,199,224,0.7)";
+              ctx.shadowBlur = 4;
+            } else {
+              ctx.fillStyle = `rgba(214,228,238,${a})`;
+              ctx.shadowBlur = 0;
+            }
+            ctx.fill();
+          }
+          ctx.shadowBlur = 0;
+        }
+        function frame(t) { paint(t, true); raf = requestAnimationFrame(frame); }
+        function start() {
+          resize(); make();
+          paint(performance.now(), false); // draw an initial frame immediately (works even if rAF is throttled)
+          if (!reduce) { cancelAnimationFrame(raf); raf = requestAnimationFrame(frame); }
+        }
+        let rt;
+        window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(start, 150); }, { passive: true });
+        start();
+      })();
+    </script>
   </body>
 </html>

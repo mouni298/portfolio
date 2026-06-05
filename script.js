@@ -20,7 +20,7 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
         }
       });
     },
-    { threshold: 0.05, rootMargin: "0px" }
+    { threshold: 0.05, rootMargin: "0px 0px -25% 0px" }
   );
 
   revealEls.forEach((el) => observer.observe(el));
