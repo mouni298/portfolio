@@ -18,7 +18,7 @@ window.MG = {
       name: "Swaram AI",
       kind: "Open-source SDK",
       status: null,
-      one: "Voice AI agents without a hosted orchestration platform.",
+      one: "Build voice agents in your own stack — no hosted platform required.",
       desc:
         "A TypeScript SDK that coordinates VAD, STT, LLM reasoning, tool calls, TTS, and telephony into domain-agnostic voice support agents.",
       tags: ["TypeScript", "Voice Agents", "Groq", "Ollama", "Whisper.cpp", "Kokoro TTS", "Twilio"],
@@ -91,11 +91,15 @@ window.MG = {
   ],
 
   stack: [
-    { group: "Agentic AI", items: ["LangChain", "LangGraph", "DeepAgents", "Google ADK", "MCP"] },
-    { group: "RAG & Data", items: ["LlamaIndex", "Milvus", "ChromaDB", "Semantic Search"] },
-    { group: "LLM Providers", items: ["OpenAI", "Anthropic", "Gemini", "Grok", "Groq"] },
-    { group: "Backend & Cloud", items: ["Python", "FastAPI", "Docker", "AWS", "GCP"] },
-    { group: "Eval & LLMOps", items: ["LangSmith", "Prompt Eng", "Monitoring"] },
+    { group: "Programming Languages", items: ["Python", "Java"] },
+    { group: "AI / ML Frameworks", items: ["LangChain", "LangGraph", "LangSmith", "Google ADK", "Deep Agents", "LlamaIndex", "FastMCP"] },
+    { group: "Generative AI / LLMs", items: ["RAG", "Agentic AI", "Prompt Engineering", "NLP", "Machine Learning", "Deep Learning", "MCP", "A2A"] },
+    { group: "LLM Providers", items: ["OpenAI", "Anthropic (Claude)", "Google Gemini", "Grok"] },
+    { group: "Databases & Vector Stores", items: ["MySQL", "MongoDB", "Milvus", "ChromaDB", "Vector Databases", "Semantic Search"] },
+    { group: "Cloud Platforms", items: ["AWS", "Google Cloud Platform (GCP)"] },
+    { group: "Backend & APIs", items: ["FastAPI", "RabbitMQ", "REST APIs"] },
+    { group: "Tools & Version Control", items: ["Git", "Docker", "LLMOps", "CI/CD", "Monitoring", "HuggingFace"] },
+    { group: "Soft Skills", items: ["Problem Solving", "Cross-functional Collaboration", "Agile Workflows"] },
   ],
 
   metrics: [
@@ -106,6 +110,7 @@ window.MG = {
 
   certifications: [
     { name: "AWS Certified Cloud Practitioner", by: "Amazon Web Services" },
+    { name: "Azure AI Fundamentals", by: "Microsoft" },
     { name: "Associate Cloud Engineer", by: "Google Cloud" },
     { name: "Certified AI Associate", by: "Salesforce" },
     { name: "Applied Generative AI Professional", by: "Infosys" },
@@ -139,9 +144,9 @@ PROJECTS:
 3. Doc Extractor — runs OCR on scanned PDFs/images, then turns PDF/DOCX/images into confidence-scored structured JSON. Stack: FastAPI, Next.js, OCR, Groq, Vision LLM, SQLModel, Celery.
 4. Agentic CRM (currently building) — supervisor agent qualifies leads, RAG support deflection, Researcher to Outreach chain, every handoff human-approved, with traces + kill-switch. Stack: Google ADK, MCP, A2A, Claude, RAG (Chroma), FastAPI.
 
-STACK: LangChain, LangGraph, DeepAgents, Google ADK, MCP, LlamaIndex, Milvus, ChromaDB, OpenAI, Anthropic, Gemini, Grok, Groq, Python, FastAPI, Docker, AWS, GCP, LangSmith.
+STACK: Languages: Python, Java. AI/ML Frameworks: LangChain, LangGraph, LangSmith, Google ADK, Deep Agents, LlamaIndex, FastMCP. GenAI/LLMs: RAG, Agentic AI, Prompt Engineering, NLP, Machine Learning, Deep Learning, MCP, A2A. LLM Providers: OpenAI, Anthropic (Claude), Google Gemini, Grok. Databases & Vector Stores: MySQL, MongoDB, Milvus, ChromaDB, Vector Databases, Semantic Search. Cloud: AWS, GCP. Backend & APIs: FastAPI, RabbitMQ, REST APIs. Tools & Version Control: Git, Docker, LLMOps, CI/CD, Monitoring, HuggingFace. Soft Skills: Problem Solving, Cross-functional Collaboration, Agile Workflows.
 IMPACT: ~4 years of production GenAI experience; reduced manual effort by 70% on legacy modernization; improved AI response accuracy by 30% via prompt engineering.
-CERTIFICATIONS: AWS Certified Cloud Practitioner, Google Cloud Associate Cloud Engineer, Salesforce Certified AI Associate, Applied Generative AI Professional (Infosys), Certified Python Programmer, Certified Mongo Developer.
+CERTIFICATIONS: AWS Certified Cloud Practitioner, Microsoft Azure AI Fundamentals, Google Cloud Associate Cloud Engineer, Salesforce Certified AI Associate, Applied Generative AI Professional (Infosys), Certified Python Programmer, Certified Mongo Developer.
 AWARDS: EnGenius Best Engineer Award - Infosys (Sep 2024 & Mar 2025), Rise Insta Award - Infosys (Mar 2024).
 EDUCATION: B.Tech in Information Technology, SRKR Engineering College (2018-2022), CGPA 8.67.
 CONTACT: email grandhimounika29@gmail.com, GitHub github.com/mouni298, LinkedIn linkedin.com/in/mounika-grandhi.`;

@@ -247,7 +247,7 @@
       .layer {
         display: grid; grid-template-columns: minmax(210px, 0.92fr) 2.3fr; gap: clamp(16px, 3vw, 52px);
         align-items: center; position: relative;
-        padding: clamp(15px, 2.5vh, 30px) clamp(6px, 1vw, 18px);
+        padding: clamp(9px, 1.5vh, 18px) clamp(6px, 1vw, 18px);
         border-bottom: 1px solid var(--line);
         transition: background 0.28s ease, padding-left 0.28s var(--ease);
       }
@@ -259,7 +259,7 @@
       .layer:hover::before { transform: scaleY(1); }
       .layer-meta { display: flex; align-items: baseline; gap: 12px; }
       .layer-meta .lx { font-family: var(--mono); font-size: 12px; color: var(--cyan); }
-      .layer-meta h4 { margin: 0; font-weight: 600; letter-spacing: -0.01em; color: var(--head); font-size: clamp(1.05rem, 1.9vw, 1.55rem); }
+      .layer-meta h4 { margin: 0; font-weight: 600; letter-spacing: -0.01em; color: var(--head); font-size: clamp(0.92rem, 1.4vw, 1.18rem); }
       .layer-meta .ct { font-family: var(--mono); font-size: 11px; color: var(--dim); margin-left: auto; }
       .layer-tools { display: flex; flex-wrap: wrap; gap: 8px; }
       .layer-tools span {
@@ -386,7 +386,6 @@
   </head>
   <body>
     <div class="grid-bg"></div>
-    <canvas id="flow-field" aria-hidden="true"></canvas>
     <div class="progress" id="progress"></div>
 
     <header class="topbar">
@@ -544,15 +543,6 @@
           path.setAttribute("d", `M ${sx} ${sy} C ${(sx + cx) / 2} ${sy}, ${(sx + cx) / 2} ${cy}, ${cx} ${cy}`);
           path.setAttribute("class", "edge"); path.setAttribute("marker-end", "url(#ah)"); path.setAttribute("id", "edge" + i);
           edges.appendChild(path);
-          if (!reduceMotion) {
-            const dot = document.createElementNS(NS, "circle");
-            dot.setAttribute("r", "2.6"); dot.setAttribute("class", "pkt");
-            const am = document.createElementNS(NS, "animateMotion");
-            am.setAttribute("dur", (2.4 + i * 0.5) + "s"); am.setAttribute("repeatCount", "indefinite"); am.setAttribute("begin", (i * 0.6) + "s");
-            const mp = document.createElementNS(NS, "mpath");
-            mp.setAttributeNS("http://www.w3.org/1999/xlink", "href", "#edge" + i);
-            am.appendChild(mp); dot.appendChild(am); packets.appendChild(dot);
-          }
         });
         sats.forEach((n) => nodes.appendChild(box(n)));
         nodes.appendChild(box(core));
@@ -753,66 +743,7 @@
     </script>
 
     <script>
-      /* ---------- starfield background ---------- */
-      (function starfield() {
-        const c = document.getElementById("flow-field");
-        if (!c) return;
-        const ctx = c.getContext("2d");
-        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        let w, h, dpr, stars = [], raf;
-
-        function resize() {
-          dpr = Math.min(2, window.devicePixelRatio || 1);
-          w = window.innerWidth; h = window.innerHeight;
-          c.width = w * dpr; c.height = h * dpr;
-          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        }
-        function make() {
-          const n = Math.round(Math.min(240, Math.max(70, (w * h) / 7000)));
-          stars = Array.from({ length: n }, () => ({
-            x: Math.random() * w,
-            y: Math.random() * h,
-            r: Math.random() * 1.25 + 0.3,
-            a: Math.random() * 0.55 + 0.25,
-            tw: Math.random() * 0.9 + 0.3,
-            ph: Math.random() * 6.2832,
-            drift: Math.random() * 0.12 + 0.02,
-            cyan: Math.random() < 0.22,
-          }));
-        }
-        function paint(t, twinkle) {
-          ctx.clearRect(0, 0, w, h);
-          for (const s of stars) {
-            if (!reduce) {
-              s.y -= s.drift;
-              if (s.y < -2) { s.y = h + 2; s.x = Math.random() * w; }
-            }
-            const tw = twinkle ? 0.55 + 0.45 * Math.sin(t * 0.001 * s.tw + s.ph) : 1;
-            const a = s.a * tw;
-            ctx.beginPath();
-            ctx.arc(s.x, s.y, s.r, 0, 6.2832);
-            if (s.cyan) {
-              ctx.fillStyle = `rgba(120,210,235,${a})`;
-              ctx.shadowColor = "rgba(87,199,224,0.7)";
-              ctx.shadowBlur = 4;
-            } else {
-              ctx.fillStyle = `rgba(214,228,238,${a})`;
-              ctx.shadowBlur = 0;
-            }
-            ctx.fill();
-          }
-          ctx.shadowBlur = 0;
-        }
-        function frame(t) { paint(t, true); raf = requestAnimationFrame(frame); }
-        function start() {
-          resize(); make();
-          paint(performance.now(), false); // draw an initial frame immediately (works even if rAF is throttled)
-          if (!reduce) { cancelAnimationFrame(raf); raf = requestAnimationFrame(frame); }
-        }
-        let rt;
-        window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(start, 150); }, { passive: true });
-        start();
-      })();
+      /* ---------- starfield background (removed) ---------- */
     </script>
   </body>
 </html>
