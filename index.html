@@ -133,7 +133,7 @@
       .graph-wrap { position: relative; }
       .graph { width: 100%; height: auto; display: block; overflow: visible; }
       .edge { fill: none; stroke: var(--line-2); stroke-width: 1.2; }
-      .pkt { fill: var(--cyan-bright); filter: drop-shadow(0 0 4px var(--cyan)); }
+      .pkt { fill: var(--cyan-bright); filter: drop-shadow(0 0 4px var(--cyan)); opacity: 0; }
       .node-box { fill: var(--panel-2); stroke: var(--line-2); stroke-width: 1; }
       .node-box.core { fill: rgba(var(--accent-rgb),0.1); stroke: var(--cyan); }
       .node-label { font-family: var(--mono); font-size: 11px; fill: var(--text); }
@@ -543,6 +543,24 @@
           path.setAttribute("d", `M ${sx} ${sy} C ${(sx + cx) / 2} ${sy}, ${(sx + cx) / 2} ${cy}, ${cx} ${cy}`);
           path.setAttribute("class", "edge"); path.setAttribute("marker-end", "url(#ah)"); path.setAttribute("id", "edge" + i);
           edges.appendChild(path);
+          if (!reduceMotion) {
+            const dot = document.createElementNS(NS, "circle");
+            dot.setAttribute("r", "2.6"); dot.setAttribute("class", "pkt");
+            dot.setAttribute("cx", sx); dot.setAttribute("cy", sy);
+            const dur = (2.4 + i * 0.5), begin = (i * 0.6) + "s";
+            const am = document.createElementNS(NS, "animateMotion");
+            am.setAttribute("dur", dur + "s"); am.setAttribute("repeatCount", "indefinite"); am.setAttribute("begin", begin);
+            const mp = document.createElementNS(NS, "mpath");
+            mp.setAttributeNS("http://www.w3.org/1999/xlink", "href", "#edge" + i);
+            am.appendChild(mp); dot.appendChild(am);
+            const fade = document.createElementNS(NS, "animate");
+            fade.setAttribute("attributeName", "opacity");
+            fade.setAttribute("dur", dur + "s"); fade.setAttribute("repeatCount", "indefinite"); fade.setAttribute("begin", begin);
+            fade.setAttribute("keyTimes", "0;0.12;0.78;1");
+            fade.setAttribute("values", "0;1;1;0");
+            dot.appendChild(fade);
+            packets.appendChild(dot);
+          }
         });
         sats.forEach((n) => nodes.appendChild(box(n)));
         nodes.appendChild(box(core));
