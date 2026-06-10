@@ -3,7 +3,56 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Mounika Grandhi — AI Engineer</title>
+    <title>Mounika Grandhi — AI Engineer | Agentic AI, RAG & Production LLM Systems</title>
+
+    <!-- ── SEO ── -->
+    <meta name="description" content="Mounika Grandhi is an AI Engineer in Hyderabad, India building agentic workflows, RAG systems, and production LLM backends — grounded, observable, and built for real traffic. 4 years of production AI experience across Inncircles and Infosys." />
+    <meta name="keywords" content="Mounika Grandhi, AI Engineer, Agentic AI, RAG, LLM, Production AI, LangChain, LangGraph, Google ADK, MCP, Generative AI Engineer, Hyderabad" />
+    <meta name="author" content="Mounika Grandhi" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#06090d" />
+    <link rel="canonical" href="https://mounikagrandhi.com/" />
+
+    <!-- ── Open Graph ── -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Mounika Grandhi" />
+    <meta property="og:title" content="Mounika Grandhi — AI Engineer" />
+    <meta property="og:description" content="Agentic workflows, RAG, and production LLM backends — grounded, observable, and built to survive real traffic." />
+    <meta property="og:url" content="https://mounikagrandhi.com/" />
+    <meta property="og:image" content="https://mounikagrandhi.com/assets/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Mounika Grandhi — AI Engineer" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- ── Twitter ── -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Mounika Grandhi — AI Engineer" />
+    <meta name="twitter:description" content="Agentic workflows, RAG, and production LLM backends — grounded, observable, and built to survive real traffic." />
+    <meta name="twitter:image" content="https://mounikagrandhi.com/assets/og-image.png" />
+
+    <!-- ── Structured data (schema.org Person) ── -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Mounika Grandhi",
+      "jobTitle": "AI Engineer",
+      "url": "https://mounikagrandhi.com/",
+      "image": "https://mounikagrandhi.com/assets/og-image.png",
+      "email": "mailto:grandhimounika29@gmail.com",
+      "description": "AI Engineer building agentic workflows, RAG systems, and production LLM backends.",
+      "address": { "@type": "PostalPlace", "addressLocality": "Hyderabad", "addressCountry": "India" },
+      "sameAs": [
+        "https://github.com/mouni298",
+        "https://www.linkedin.com/in/mounika-grandhi"
+      ],
+      "knowsAbout": ["Agentic AI", "Retrieval-Augmented Generation", "Large Language Models", "Production AI", "LangChain", "LangGraph", "Model Context Protocol"],
+      "worksFor": { "@type": "Organization", "name": "Inncircles" },
+      "alumniOf": { "@type": "CollegeOrUniversity", "name": "SRKR Engineering College" }
+    }
+    </script>
+
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -356,11 +405,15 @@
       }
       @media (max-width: 620px) {
         body { font-size: 15px; }
-        .snap { scroll-snap-type: y proximity; }
-        .page { justify-content: flex-start; padding-top: 88px; }
-        .hero.page { justify-content: center; }
-        .pipe { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; }
+        /* full-page snap traps scrolling on phones where sections are taller
+           than the screen — fall back to natural document scrolling */
+        .snap { scroll-snap-type: none; -webkit-overflow-scrolling: touch; }
+        .page { scroll-snap-stop: normal; scroll-snap-align: none; justify-content: flex-start; min-height: auto; padding-top: 92px; padding-bottom: clamp(40px, 8vh, 64px); }
+        .hero.page { min-height: 100dvh; justify-content: center; }
+        .pipe { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; min-width: 0; }
         .pipe::-webkit-scrollbar { display: none; }
+        .sys-card { min-width: 0; }
+        .sys-card .pipe.small { min-width: 0; max-width: 100%; }
         .pnode, .pconn { flex: 0 0 auto; }
         .page-num { font-size: 4.2rem; top: 74px; }
         .top-right .status span { display: none; }
@@ -368,6 +421,7 @@
         .layer { grid-template-columns: 1fr; gap: 12px; align-items: start; padding-block: 18px; }
         .cred-grid { grid-template-columns: 1fr; gap: 28px; }
         .cred-certs { grid-template-columns: 1fr; }
+        .sys-grid { grid-template-columns: 1fr; gap: 14px; }
       }
 
       @media (max-height: 720px) and (min-width: 621px) {
@@ -406,7 +460,7 @@
       <section class="page hero" id="hero" data-label="Intro">
         <div class="page-inner hero-inner reveal">
           <div>
-            <p class="eyebrow">AI Systems Engineer</p>
+            <p class="eyebrow">AI Engineer</p>
             <h1>I design systems that <b>think</b> — and stay <b>accountable</b>.</h1>
             <p class="lead">Agentic workflows, RAG, and production LLM backends. Grounded, observable, and built to survive real traffic.</p>
             <div class="cta">
@@ -439,7 +493,7 @@
         <div class="page-inner">
           <div class="sec-head reveal">
             <p class="eyebrow">Execution Trace</p>
-            <h2>Production GenAI, two teams.</h2>
+            <h2>Production AI, two teams.</h2>
           </div>
           <div class="trace reveal" id="trace"></div>
         </div>

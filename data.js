@@ -103,7 +103,7 @@ window.MG = {
   ],
 
   metrics: [
-    { v: "4", u: "yrs", l: "Production GenAI" },
+    { v: "4", u: "yrs", l: "Production AI" },
     { v: "70", u: "%", l: "Less manual effort" },
     { v: "30", u: "%", l: "Higher AI accuracy" },
   ],
@@ -144,8 +144,8 @@ PROJECTS:
 3. Doc Extractor — runs OCR on scanned PDFs/images, then turns PDF/DOCX/images into confidence-scored structured JSON. Stack: FastAPI, Next.js, OCR, Groq, Vision LLM, SQLModel, Celery.
 4. Agentic CRM (currently building) — supervisor agent qualifies leads, RAG support deflection, Researcher to Outreach chain, every handoff human-approved, with traces + kill-switch. Stack: Google ADK, MCP, A2A, Claude, RAG (Chroma), FastAPI.
 
-STACK: Languages: Python, Java. AI/ML Frameworks: LangChain, LangGraph, LangSmith, Google ADK, Deep Agents, LlamaIndex, FastMCP. GenAI/LLMs: RAG, Agentic AI, Prompt Engineering, NLP, Machine Learning, Deep Learning, MCP, A2A. LLM Providers: OpenAI, Anthropic (Claude), Google Gemini, Grok. Databases & Vector Stores: MySQL, MongoDB, Milvus, ChromaDB, Vector Databases, Semantic Search. Cloud: AWS, GCP. Backend & APIs: FastAPI, RabbitMQ, REST APIs. Tools & Version Control: Git, Docker, LLMOps, CI/CD, Monitoring, HuggingFace. Soft Skills: Problem Solving, Cross-functional Collaboration, Agile Workflows.
-IMPACT: ~4 years of production GenAI experience; reduced manual effort by 70% on legacy modernization; improved AI response accuracy by 30% via prompt engineering.
+STACK: Languages: Python, Java. AI/ML Frameworks: LangChain, LangGraph, LangSmith, Google ADK, Deep Agents, LlamaIndex, FastMCP. Production AI/LLMs: RAG, Agentic AI, Prompt Engineering, NLP, Machine Learning, Deep Learning, MCP, A2A. LLM Providers: OpenAI, Anthropic (Claude), Google Gemini, Grok. Databases & Vector Stores: MySQL, MongoDB, Milvus, ChromaDB, Vector Databases, Semantic Search. Cloud: AWS, GCP. Backend & APIs: FastAPI, RabbitMQ, REST APIs. Tools & Version Control: Git, Docker, LLMOps, CI/CD, Monitoring, HuggingFace. Soft Skills: Problem Solving, Cross-functional Collaboration, Agile Workflows.
+IMPACT: ~4 years of production AI experience; reduced manual effort by 70% on legacy modernization; improved AI response accuracy by 30% via prompt engineering.
 CERTIFICATIONS: AWS Certified Cloud Practitioner, Microsoft Azure AI Fundamentals, Google Cloud Associate Cloud Engineer, Salesforce Certified AI Associate, Applied Generative AI Professional (Infosys), Certified Python Programmer, Certified Mongo Developer.
 AWARDS: EnGenius Best Engineer Award - Infosys (Sep 2024 & Mar 2025), Rise Insta Award - Infosys (Mar 2024).
 EDUCATION: B.Tech in Information Technology, SRKR Engineering College (2018-2022), CGPA 8.67.
